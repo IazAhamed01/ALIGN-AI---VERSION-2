@@ -146,9 +146,7 @@ class LLMConfig {
 - 🚛 **Logistics** – route planning, cost reduction, fleet management
 - 🛒 **Market** – price trends, demand forecasting
 
-What would you like to know today?
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live responses.*`;
+What would you like to know today?`;
         }
 
         // Transportation / logistics cost
@@ -159,9 +157,7 @@ What would you like to know today?
 2. **Fleet Status** – Consolidate smaller loads from nearby farms to maximize truck fill ratio and reduce per-unit cost.
 3. **Cost Saving** – Combining loads with nearby farms can reduce transport costs by 10–15%.
 4. **Timing** – Schedule transport in early morning (5–8 AM) to avoid traffic and reduce fuel spend.
-5. **Tracking** – Use ULIP-integrated tracking for real-time visibility and delay alerts.
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live responses.*`;
+5. **Tracking** – Use ULIP-integrated tracking for real-time visibility and delay alerts.`;
         }
 
         // Storage / warehouse / cold storage / capacity
@@ -172,9 +168,7 @@ What would you like to know today?
 2. **Priority** – Load "N-53" variety onions first — shorter shelf life requires faster dispatch.
 3. **Energy Efficiency** – Cooling load spikes between 2–5 PM. Shift pre-cooling cycles to 10 PM–4 AM for 20% energy savings.
 4. **Spoilage Prevention** – Maintain temperature at 0–2°C and humidity at 65–70% for optimal preservation.
-5. **Allocation** – Reserve 30% capacity buffer for emergency overflow from neighboring districts.
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live responses.*`;
+5. **Allocation** – Reserve 30% capacity buffer for emergency overflow from neighboring districts.`;
         }
 
         // Market / price / demand / mandi
@@ -185,9 +179,7 @@ What would you like to know today?
 2. **Demand** – High buyer activity from Pune and Hyderabad wholesale markets this week.
 3. **Strategy** – Hold 40% stock in cold storage and release in May for better returns.
 4. **ONDC Tip** – List produce on ONDC at least 5 days before harvest to pre-book buyers and reduce post-harvest losses.
-5. **Trend** – Avoid selling in bulk on Mondays — prices historically dip 5–7% at week start.
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live responses.*`;
+5. **Trend** – Avoid selling in bulk on Mondays — prices historically dip 5–7% at week start.`;
         }
 
         // Farmer / harvest / crop / weather / yield
@@ -198,9 +190,7 @@ What would you like to know today?
 2. **Weather Alert** – Light rain forecast next week. Ensure field drainage to prevent bulb rot.
 3. **Storage** – Store 40% of yield in cold storage to benefit from peak May demand.
 4. **Soil Health** – Post-harvest, apply green manure (Dhaincha) to restore nitrogen levels before the next sowing.
-5. **Pest Watch** – Monitor for thrips and downy mildew during the humid pre-harvest period.
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live responses.*`;
+5. **Pest Watch** – Monitor for thrips and downy mildew during the humid pre-harvest period.`;
         }
 
         // Dashboard / forecast / coordination
@@ -211,9 +201,7 @@ What would you like to know today?
 2. **Logistics Stress** – MEDIUM. Transport capacity at 78% utilization. Pre-book additional vehicles.
 3. **Storage Status** – 33% utilized. 537 MT available across 3 cold storage facilities.
 4. **Advisories** – Begin staggered harvesting to avoid logistics bottlenecks on peak days.
-5. **Next Steps** – Run Dashboard coordination to get real-time optimized allocation plans.
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live responses.*`;
+5. **Next Steps** – Run Dashboard coordination to get real-time optimized allocation plans.`;
         }
 
         // Default fallback for anything else
@@ -223,9 +211,7 @@ What would you like to know today?
 2. **Pest Control** – Inspect crops early morning when pest activity is most visible.
 3. **Market Timing** – Check local mandi prices before scheduling transport to maximize returns.
 4. **Storage** – Ensure post-harvest cooling within 4 hours to reduce spoilage by up to 30%.
-5. **Planning** – Use ALIGN's Dashboard to coordinate harvest, storage, and logistics in one place.
-
-*Note: AI is running in demo mode. Add a valid GEMINI_API_KEY in .env for live AI responses.*`;
+5. **Planning** – Use ALIGN's Dashboard to coordinate harvest, storage, and logistics in one place.`;
     }
 
     /**
