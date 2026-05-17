@@ -3,6 +3,8 @@ No problem at all! Here is the professional README in plain text. You can copy t
 ```markdown
 # 🌾 AlignAI - Agricultural Coordination Layer (Version 2)
 
+DEPLOYED LINK : https://align-ai-version-2.vercel.app/
+
 AlignAI is an **AI-powered, future-aware coordination platform** designed to solve supply chain inefficiencies in the agricultural sector. By integrating LLMs (Large Language Models) and RAG (Retrieval-Augmented Generation), AlignAI intelligently optimizes harvest forecasting, logistics stress, and storage capacity to minimize post-harvest losses and maximize farmer returns.
 
 ---
