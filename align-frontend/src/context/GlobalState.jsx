@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useCallback } from 'react'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
+const API_BASE = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000')
 
 // Initial State
 const initialState = {
