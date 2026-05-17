@@ -1,0 +1,80 @@
+.footer {
+    background: var(--color-gray-900);
+    color: var(--color-white);
+    padding: var(--space-12) 0 var(--space-6);
+    margin-top: auto;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.footer .logo-box {
+    width: fit-content;
+    background: var(--color-white);
+}
+
+.footer .logo-text {
+    color: var(--color-black);
+}
+
+.footer-tagline {
+    color: var(--color-gray-400);
+    font-size: var(--font-size-sm);
+}
+
+.footer-links {
+    display: flex;
+    gap: var(--space-16);
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.footer-section h4 {
+    color: var(--color-white);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+}
+
+.footer-section a {
+    color: var(--color-gray-400);
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
+}
+
+.footer-section a:hover {
+    color: var(--color-emerald);
+}
+
+.partner-badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-gray-800);
+    color: var(--color-gray-300);
+    font-size: var(--font-size-xs);
+    border-radius: var(--radius-sm);
+    width: fit-content;
+}
+
+.footer-bottom {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-gray-800);
+}
+
+.footer-bottom p {
+    color: var(--color-gray-500);
+    font-size: var(--font-size-sm);
+}

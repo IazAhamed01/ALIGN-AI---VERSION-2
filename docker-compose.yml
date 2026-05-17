@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # ChromaDB Vector Database
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: alignai-chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+    networks:
+      - alignai-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: alignai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - alignai-network
+
+  # PostgreSQL Database (for production data)
+  postgres:
+    image: postgres:15-alpine
+    container_name: alignai-postgres
+    environment:
+      POSTGRES_USER: alignai
+      POSTGRES_PASSWORD: alignai_password
+      POSTGRES_DB: alignai_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - alignai-network
+
+  # Backend Application
+  backend:
+    build: .
+    container_name: alignai-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - REDIS_URL=redis://redis:6379
+      - CHROMA_HOST=http://chromadb:8000
+      - DATABASE_URL=postgresql://alignai:alignai_password@postgres:5432/alignai_db
+    depends_on:
+      - chromadb
+      - redis
+      - postgres
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    networks:
+      - alignai-network
+    command: npm start
+
+volumes:
+  chroma_data:
+  redis_data:
+  postgres_data:
+
+networks:
+  alignai-network:
+    driver: bridge

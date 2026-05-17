@@ -1,0 +1,173 @@
+.container-fluid {
+    width: 100%;
+    padding: 0 var(--space-6);
+}
+
+.logistics-header {
+    padding: var(--space-4) 0;
+}
+
+/* Search and Filters */
+.search-filters {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0 var(--space-3);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    width: 300px;
+}
+
+.search-box input {
+    border: none;
+    padding: var(--space-3) 0;
+}
+
+.search-box input:focus {
+    box-shadow: none;
+}
+
+/* Main Content */
+.logistics-content {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: var(--space-4);
+    height: calc(100vh - 200px);
+}
+
+/* Vehicle List */
+.vehicle-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    overflow-y: auto;
+    padding-right: var(--space-2);
+}
+
+.vehicle-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+}
+
+.vehicle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-2);
+}
+
+.vehicle-id strong {
+    display: block;
+    font-size: var(--font-size-base);
+}
+
+.vehicle-time {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+}
+
+.signal-on {
+    color: var(--color-emerald);
+}
+
+.signal-off {
+    color: var(--color-gray-400);
+}
+
+.vehicle-location {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-2);
+}
+
+.vehicle-issue {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) 0;
+    margin-bottom: var(--space-3);
+}
+
+.vehicle-issue.success {
+    color: var(--color-emerald);
+}
+
+.vehicle-issue.warning {
+    color: #D97706;
+}
+
+.vehicle-issue.error {
+    color: #DC2626;
+}
+
+.vehicle-stats {
+    display: flex;
+    gap: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-gray-100);
+}
+
+.v-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.v-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+}
+
+.v-value {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.v-value.on {
+    color: var(--color-emerald);
+}
+
+.v-value.off {
+    color: #DC2626;
+}
+
+/* Logistics Map */
+.logistics-map {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-gray-200);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .logistics-content {
+        grid-template-columns: 1fr;
+    }
+
+    .vehicle-list {
+        max-height: 300px;
+    }
+
+    .logistics-map {
+        height: 400px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
