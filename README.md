@@ -5,6 +5,7 @@ No problem at all! Here is the professional README in plain text. You can copy t
 
 DEPLOYED LINK : https://align-ai-version-2.vercel.app/
 
+OVERVIEW:
 AlignAI is an **AI-powered, future-aware coordination platform** designed to solve supply chain inefficiencies in the agricultural sector. By integrating LLMs (Large Language Models) and RAG (Retrieval-Augmented Generation), AlignAI intelligently optimizes harvest forecasting, logistics stress, and storage capacity to minimize post-harvest losses and maximize farmer returns.
 
 ---
@@ -18,6 +19,31 @@ AlignAI is an **AI-powered, future-aware coordination platform** designed to sol
 - 🌍 **Multilingual Support**: AI queries support regional languages including Hindi, Tamil, Telugu, Kannada, Marathi, and Bengali.
 - 📊 **Real-Time Dashboard**: Comprehensive data visualization using Chart.js and interactive maps via Leaflet.
 
+## 👨‍💻 My Contribution
+
+In this upgraded version of AlignAI, my primary contribution focused on integrating the **AI intelligence layer** into the platform to transform the system from a conventional optimization engine into an interactive AI-assisted coordination platform.
+
+### Key Areas I Worked On
+- Designed and integrated the **LLM-powered AI Assistant** using the Groq SDK (`llama-3.3-70b-versatile`) for contextual agricultural advisory and natural language interaction.
+- Implemented the conversational AI workflow to enable users to query logistics, harvest, and storage insights dynamically.
+- Contributed to the development of the multilingual interaction capability for improved regional accessibility.
+- Worked on the AI-system integration architecture to ensure smooth communication between the frontend, backend, and intelligence layer.
+- Helped shape the overall product direction by introducing an AI-driven interaction model instead of limiting the platform to static optimization logic.
+
+### Technical Focus
+- AI Agent Integration
+- LLM Workflow Design
+- Backend AI Routing
+- Prompt Structuring
+- AI-Enhanced User Interaction
+- Intelligent Coordination Experience
+
+### Impact
+The integration of the AI layer significantly improved the usability and scalability of AlignAI by enabling:
+- intelligent user interaction,
+- contextual recommendations,
+- adaptive advisory support,
+- and future extensibility toward advanced AI-driven agricultural coordination systems.
 ---
 
 ## 🛠️ Technology Stack
