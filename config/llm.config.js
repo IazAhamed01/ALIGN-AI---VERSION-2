@@ -9,8 +9,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const logger = require('../services/logger');
 const Groq = require('groq-sdk');
 
-// Determine which LLM provider to use
-const LLM_PROVIDER = process.env.LLM_PROVIDER || 'gemini'; // 'openai', 'gemini', or 'groq'
+const LLM_PROVIDER = process.env.LLM_PROVIDER || 'groq'; // 'openai', 'gemini', or 'groq'
 
 class LLMConfig {
     constructor() {
