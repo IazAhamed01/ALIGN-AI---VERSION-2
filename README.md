@@ -136,6 +136,4 @@ ALIGN-AI/
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License.
-```
+##- AUTHOR - Ajmal Ahamed Z
