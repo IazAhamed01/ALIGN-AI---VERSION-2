@@ -1,6 +1,3 @@
-No problem at all! Here is the professional README in plain text. You can copy the code block below and paste it directly into your GitHub repository:
-
-```markdown
 # 🌾 AlignAI - Agricultural Coordination Layer (Version 2)
 
 DEPLOYED LINK : https://align-ai-version-2.vercel.app/
