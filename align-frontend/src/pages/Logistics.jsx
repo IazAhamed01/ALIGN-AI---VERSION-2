@@ -50,18 +50,18 @@ const vehicles = [
     },
 ]
 
-const filters = [
-    { id: 'all', label: 'All', count: 16 },
-    { id: 'stopped', label: 'Stopped', count: 8 },
-    { id: 'moving', label: 'Moving', count: 2 },
-    { id: 'lowNetwork', label: 'Low Network', count: 0 },
-    { id: 'disconnected', label: 'Wire Disconnected', count: 6 },
-]
-
 function Logistics() {
-    const { language } = useLanguage()
+    const { language, t } = useLanguage()
     const [activeFilter, setActiveFilter] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
+
+    const filters = [
+        { id: 'all', label: t?.logistics?.all || 'All', count: 16 },
+        { id: 'stopped', label: t?.logistics?.stopped || 'Stopped', count: 8 },
+        { id: 'moving', label: t?.logistics?.moving || 'Moving', count: 2 },
+        { id: 'lowNetwork', label: t?.logistics?.lowNetwork || 'Low Network', count: 0 },
+        { id: 'disconnected', label: t?.logistics?.wireDisconnected || 'Wire Disconnected', count: 6 },
+    ]
 
     const filteredVehicles = vehicles.filter(v => {
         if (activeFilter !== 'all' && v.status !== activeFilter) return false
@@ -102,7 +102,7 @@ function Logistics() {
                         <img src="/assets/ulip-logo.png" alt="ULIP" className="partner-logo" />
                     </div>
                     <div className="header-title-row">
-                        <h1>Logistics & Tracking</h1>
+                        <h1>{t?.logistics?.title || 'Logistics & Tracking'}</h1>
                         <ContextualAI
                             domain="logistics"
                             context={logisticsContext}
@@ -118,7 +118,7 @@ function Logistics() {
                         <Search size={18} />
                         <input
                             type="text"
-                            placeholder="Search Truck Number in GPS"
+                            placeholder={t?.logistics?.searchPlaceholder || 'Search Truck Number in GPS'}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="input"
@@ -131,7 +131,7 @@ function Logistics() {
                                 className={`tab ${activeFilter === filter.id ? 'active' : ''}`}
                                 onClick={() => setActiveFilter(filter.id)}
                             >
-                                {filter.label}({filter.count})
+                                {filter.label} ({filter.count})
                             </button>
                         ))}
                     </div>
@@ -150,7 +150,7 @@ function Logistics() {
                                     </div>
                                     <div className="vehicle-signal">
                                         {vehicle.status === 'moving' ? (
-                                            <Signal size={16} className="signal-on" />
+                                             <Signal size={16} className="signal-on" />
                                         ) : (
                                             <SignalZero size={16} className="signal-off" />
                                         )}
@@ -165,17 +165,17 @@ function Logistics() {
                                 </div>
                                 <div className="vehicle-stats">
                                     <div className="v-stat">
-                                        <span className="v-label">Ignition</span>
+                                        <span className="v-label">{t?.logistics?.ignition || 'Ignition'}</span>
                                         <span className={`v-value ${vehicle.speed > 0 ? 'on' : 'off'}`}>
-                                            {vehicle.speed > 0 ? 'ON' : 'OFF'}
+                                            {vehicle.speed > 0 ? (t?.logistics?.on || 'ON') : (t?.logistics?.off || 'OFF')}
                                         </span>
                                     </div>
                                     <div className="v-stat">
-                                        <span className="v-label">Speed</span>
+                                        <span className="v-label">{t?.logistics?.speed || 'Speed'}</span>
                                         <span className="v-value">{vehicle.speed} km/h</span>
                                     </div>
                                     <div className="v-stat">
-                                        <span className="v-label">Travelled today</span>
+                                        <span className="v-label">{t?.logistics?.travelledToday || 'Travelled today'}</span>
                                         <span className="v-value">{vehicle.traveled} km</span>
                                     </div>
                                 </div>
@@ -198,8 +198,8 @@ function Logistics() {
                                 <Marker key={vehicle.id} position={[vehicle.lat, vehicle.lng]}>
                                     <Popup>
                                         <strong>{vehicle.id}</strong>
-                                        <p>Status: {vehicle.status}</p>
-                                        <p>Speed: {vehicle.speed} km/h</p>
+                                        <p>{t?.logistics?.status || 'Status:'} {vehicle.status}</p>
+                                        <p>{t?.logistics?.speed || 'Speed:'} {vehicle.speed} km/h</p>
                                     </Popup>
                                 </Marker>
                             ))}

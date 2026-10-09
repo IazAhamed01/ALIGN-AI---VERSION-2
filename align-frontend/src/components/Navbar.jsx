@@ -4,17 +4,17 @@ import LanguageSwitcher from './LanguageSwitcher'
 import { useLanguage } from '../context/LanguageContext'
 import './Navbar.css'
 
-const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { path: '/farmers', label: 'Farmers', icon: Users },
-    { path: '/storage', label: 'Storage', icon: Warehouse },
-    { path: '/logistics', label: 'Logistics', icon: Truck },
-    { path: '/market', label: 'Market', icon: ShoppingCart },
-    { path: '/ai-assistant', label: 'AI Assistant', icon: Sparkles },
-]
-
 function Navbar() {
-    const { language, changeLanguage } = useLanguage()
+    const { language, changeLanguage, t } = useLanguage()
+
+    const navItems = [
+        { path: '/dashboard', label: t?.nav?.dashboard || 'Dashboard', icon: LayoutDashboard },
+        { path: '/farmers', label: t?.nav?.farmers || 'Farmers', icon: Users },
+        { path: '/storage', label: t?.nav?.storage || 'Storage', icon: Warehouse },
+        { path: '/logistics', label: t?.nav?.logistics || 'Logistics', icon: Truck },
+        { path: '/market', label: t?.nav?.market || 'Market', icon: ShoppingCart },
+        { path: '/ai-assistant', label: t?.nav?.aiAssistant || 'AI Assistant', icon: Sparkles },
+    ]
 
     return (
         <nav className="navbar">
@@ -42,7 +42,7 @@ function Navbar() {
                         onLanguageChange={changeLanguage}
                     />
                     <Link to="/dashboard" className="btn btn-primary">
-                        Get Started
+                        {t?.nav?.getStarted || 'Get Started'}
                     </Link>
                 </div>
             </div>

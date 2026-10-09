@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 import {
     ShoppingCart,
     MapPin,
@@ -88,31 +89,34 @@ const products = [
     },
 ]
 
-const categories = [
-    'All Products',
-    'Vegetables',
-    'Seeds & Plants',
-    'Fertilizers',
-    'Storage',
-    'Logistics'
-]
-
-const sortOptions = [
-    'Most Relevant',
-    'Price: Low to High',
-    'Price: High to Low',
-    'Rating',
-    'Distance'
-]
-
 function Market() {
+    const { t } = useLanguage()
     const [activeCategory, setActiveCategory] = useState('All Products')
     const [viewMode, setViewMode] = useState('grid')
     const [sortBy, setSortBy] = useState('Most Relevant')
 
+    const categoryList = [
+        { id: 'All Products', label: t?.market?.allProducts || 'All Products' },
+        { id: 'Vegetables', label: t?.market?.vegetables || 'Vegetables' },
+        { id: 'Seeds & Plants', label: t?.market?.seedsAndPlants || 'Seeds & Plants' },
+        { id: 'Fertilizers', label: t?.market?.fertilizers || 'Fertilizers' },
+        { id: 'Storage', label: t?.market?.storage || 'Storage' },
+        { id: 'Logistics', label: t?.market?.logisticsCategory || 'Logistics' },
+    ]
+
+    const sortOptions = [
+        { id: 'Most Relevant', label: t?.market?.mostRelevant || 'Most Relevant' },
+        { id: 'Price: Low to High', label: t?.market?.priceLowHigh || 'Price: Low to High' },
+        { id: 'Price: High to Low', label: t?.market?.priceHighLow || 'Price: High to Low' },
+        { id: 'Rating', label: t?.market?.rating || 'Rating' },
+        { id: 'Distance', label: t?.market?.distance || 'Distance' }
+    ]
+
     const filteredProducts = activeCategory === 'All Products'
         ? products
         : products.filter(p => p.category === activeCategory)
+
+    const currentCatLabel = categoryList.find(c => c.id === activeCategory)?.label || activeCategory
 
     return (
         <div className="market page">
@@ -123,30 +127,30 @@ function Market() {
                         <img src="/assets/align-logo.jpg" alt="Align" className="logo-mini" />
                         <img src="/assets/ondc-logo.png" alt="ONDC" className="partner-logo" />
                     </div>
-                    <h1>Agricultural Marketplace</h1>
-                    <p className="text-muted">Open network for digital commerce</p>
+                    <h1>{t?.market?.title || 'Agricultural Marketplace'}</h1>
+                    <p className="text-muted">{t?.market?.subtitle || 'Open network for digital commerce'}</p>
                 </div>
 
                 {/* Search & Filters Bar */}
                 <div className="market-controls">
                     <div className="category-nav">
-                        {categories.map((category) => (
+                        {categoryList.map((category) => (
                             <button
-                                key={category}
-                                className={`category-btn ${activeCategory === category ? 'active' : ''}`}
-                                onClick={() => setActiveCategory(category)}
+                                key={category.id}
+                                className={`category-btn ${activeCategory === category.id ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(category.id)}
                             >
-                                {category}
+                                {category.label}
                             </button>
                         ))}
                     </div>
 
                     <div className="view-controls">
                         <div className="sort-dropdown">
-                            <span>Sort by:</span>
+                            <span>{t?.market?.sortBy || 'Sort by:'}</span>
                             <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                                 {sortOptions.map(opt => (
-                                    <option key={opt} value={opt}>{opt}</option>
+                                    <option key={opt.id} value={opt.id}>{opt.label}</option>
                                 ))}
                             </select>
                             <ChevronDown size={16} />
@@ -171,7 +175,7 @@ function Market() {
 
                 {/* Results Count */}
                 <div className="results-bar">
-                    <span>{filteredProducts.length} products in {activeCategory}</span>
+                    <span>{filteredProducts.length} {t?.market?.products || 'products in'} {currentCatLabel}</span>
                 </div>
 
                 {/* Products Grid */}
@@ -206,15 +210,15 @@ function Market() {
                                 <div className="product-meta">
                                     <span className="min-order">
                                         <Package size={14} />
-                                        Min. {product.minOrder}
+                                        {t?.market?.min || 'Min.'} {product.minOrder}
                                     </span>
                                 </div>
 
                                 <div className="product-actions">
-                                    <button className="btn btn-outline">View Details</button>
+                                    <button className="btn btn-outline">{t?.market?.viewDetails || 'View Details'}</button>
                                     <button className="btn btn-primary">
                                         <ShoppingCart size={16} />
-                                        Add to Cart
+                                        {t?.market?.addToCart || 'Add to Cart'}
                                     </button>
                                 </div>
                             </div>
@@ -228,28 +232,28 @@ function Market() {
                         <TrendingUp size={24} className="stat-icon" />
                         <div>
                             <div className="stat-value">1,847</div>
-                            <div className="stat-label">Active Listings</div>
+                            <div className="stat-label">{t?.market?.activeListings || 'Active Listings'}</div>
                         </div>
                     </div>
                     <div className="market-stat-card card">
                         <Package size={24} className="stat-icon" />
                         <div>
                             <div className="stat-value">₹2.3 Cr</div>
-                            <div className="stat-label">Monthly GMV</div>
+                            <div className="stat-label">{t?.market?.monthlyGMV || 'Monthly GMV'}</div>
                         </div>
                     </div>
                     <div className="market-stat-card card">
                         <Clock size={24} className="stat-icon" />
                         <div>
                             <div className="stat-value">24 hrs</div>
-                            <div className="stat-label">Avg. Fulfillment</div>
+                            <div className="stat-label">{t?.market?.avgFulfillment || 'Avg. Fulfillment'}</div>
                         </div>
                     </div>
                     <div className="market-stat-card card">
                         <Calendar size={24} className="stat-icon" />
                         <div>
                             <div className="stat-value">156</div>
-                            <div className="stat-label">Sellers Today</div>
+                            <div className="stat-label">{t?.market?.sellersToday || 'Sellers Today'}</div>
                         </div>
                     </div>
                 </div>

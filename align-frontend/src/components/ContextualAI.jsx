@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { MessageCircle, X, Send, Sparkles, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
 import './ContextualAI.css'
 
-const API_URL = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001')
+const API_URL = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000')
 
-function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
+function ContextualAI({ context, domain, language: propLanguage, mode = 'fab' }) {
+    const { language: ctxLanguage, t } = useLanguage()
+    const language = propLanguage || ctxLanguage
     const [isOpen, setIsOpen] = useState(false)
     const [isMinimized, setIsMinimized] = useState(false)
     const [messages, setMessages] = useState([])
@@ -12,9 +15,6 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
     const [loading, setLoading] = useState(false)
     const [autoInsights, setAutoInsights] = useState(null)
     const [loadingInsights, setLoadingInsights] = useState(true)
-
-    // Remove the automatic useEffect to save quota
-    // useEffect(() => { ... })
 
     const handleOpen = () => {
         setIsOpen(true)
@@ -87,7 +87,7 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
             console.error('Query error:', error)
             const errorMessage = {
                 type: 'error',
-                text: 'Sorry, I couldn\'t process your question. Please try again.',
+                text: t?.contextualAI?.error || 'Sorry, I couldn\'t process your question. Please try again.',
                 timestamp: new Date()
             }
             setMessages(prev => [...prev, errorMessage])
@@ -98,11 +98,11 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
 
     const getDomainTitle = () => {
         const titles = {
-            farmers: 'Farming Insights',
-            storage: 'Storage Analysis',
-            logistics: 'Logistics Report'
+            farmers: t?.contextualAI?.farmingInsights || 'Farming Insights',
+            storage: t?.contextualAI?.storageAnalysis || 'Storage Analysis',
+            logistics: t?.contextualAI?.logisticsReport || 'Logistics Report'
         }
-        return titles[domain] || 'AI Analysis'
+        return titles[domain] || t?.contextualAI?.aiAnalysis || 'AI Analysis'
     }
 
     const getDomainColor = () => {
@@ -122,7 +122,7 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
                     onClick={handleOpen}
                 >
                     <Sparkles size={16} />
-                    <span>Run AI Analysis</span>
+                    <span>{t?.contextualAI?.runAnalysis || 'Run AI Analysis'}</span>
                 </button>
             )
         }
@@ -178,7 +178,7 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
                             {messages.length === 0 && loadingInsights && (
                                 <div className="loading-insights">
                                     <Loader2 className="spinner" size={32} />
-                                    <p>Analyzing your data...</p>
+                                    <p>{t?.contextualAI?.analyzing || 'Analyzing your data...'}</p>
                                 </div>
                             )}
 
@@ -208,7 +208,7 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
                                         <Loader2 className="spinner" size={16} />
                                     </div>
                                     <div className="message-content">
-                                        <div className="message-text typing">Thinking...</div>
+                                        <div className="message-text typing">{t?.contextualAI?.thinking || 'Thinking...'}</div>
                                     </div>
                                 </div>
                             )}
@@ -220,7 +220,7 @@ function ContextualAI({ context, domain, language = 'en', mode = 'fab' }) {
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                placeholder="Ask me anything..."
+                                placeholder={t?.contextualAI?.askAnything || 'Ask me anything...'}
                                 disabled={loading}
                             />
                             <button

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Globe } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
 import './LanguageSwitcher.css'
 
 const languages = [
@@ -13,6 +14,7 @@ const languages = [
 ]
 
 function LanguageSwitcher({ currentLanguage = 'en', onLanguageChange }) {
+    const { t } = useLanguage()
     const [isOpen, setIsOpen] = useState(false)
 
     const handleLanguageSelect = (langCode) => {
@@ -32,7 +34,7 @@ function LanguageSwitcher({ currentLanguage = 'en', onLanguageChange }) {
             <button
                 className="language-button"
                 onClick={() => setIsOpen(!isOpen)}
-                title="Change Language"
+                title={t?.languageSwitcher?.selectLanguage || 'Change Language'}
             >
                 <Globe size={18} />
                 <span className="current-lang">{currentLang.nativeName}</span>
@@ -44,7 +46,7 @@ function LanguageSwitcher({ currentLanguage = 'en', onLanguageChange }) {
                     <div className="language-dropdown">
                         <div className="dropdown-header">
                             <Globe size={16} />
-                            <span>Select Language</span>
+                            <span>{t?.languageSwitcher?.selectLanguage || 'Select Language'}</span>
                         </div>
                         <div className="language-list">
                             {languages.map((lang) => (

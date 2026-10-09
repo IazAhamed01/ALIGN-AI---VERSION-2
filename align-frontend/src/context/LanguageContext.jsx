@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useMemo } from 'react'
+import { getTranslation } from './translations'
 
 const LanguageContext = createContext()
 
@@ -21,8 +22,10 @@ export function LanguageProvider({ children }) {
         localStorage.setItem('preferredLanguage', newLanguage)
     }
 
+    const t = useMemo(() => getTranslation(language), [language])
+
     return (
-        <LanguageContext.Provider value={{ language, changeLanguage }}>
+        <LanguageContext.Provider value={{ language, changeLanguage, t }}>
             {children}
         </LanguageContext.Provider>
     )

@@ -16,27 +16,19 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 })
 
-const facilityTypes = [
-    { id: 'all', label: 'All Facilities', icon: Building2, count: 8 },
-    { id: 'cold', label: 'Cold Storage', icon: Snowflake, count: 3 },
-    { id: 'hot', label: 'Hot Storage', icon: Thermometer, count: 2 },
-    { id: 'warehouse', label: 'Warehouses', icon: Warehouse, count: 2 },
-    { id: 'silo', label: 'Silos', icon: Cylinder, count: 1 },
-]
-
-// Sample facilities with coordinates
-const facilitiesData = [
-    { id: 1, name: 'Nashik Cold Storage Hub', type: 'cold', lat: 19.9975, lng: 73.7898, capacity: 500, usage: 150 },
-    { id: 2, name: 'Sinnar Agri Warehouse', type: 'cold', lat: 19.9556, lng: 73.8345, capacity: 300, usage: 100 },
-    { id: 3, name: 'Nashik Central Warehouse', type: 'warehouse', lat: 20.0063, lng: 73.7906, capacity: 200, usage: 80 },
-    { id: 4, name: 'Dindori Hot Storage', type: 'hot', lat: 20.2046, lng: 73.8456, capacity: 150, usage: 60 },
-]
-
 function Storage() {
     const { state, fetchStorage } = useGlobalState()
-    const { language } = useLanguage()
+    const { language, t } = useLanguage()
     const [activeFilter, setActiveFilter] = useState('all')
     const [loading, setLoading] = useState(true)
+
+    const facilityTypes = [
+        { id: 'all', label: t?.storage?.allFacilities || 'All Facilities', icon: Building2, count: 8 },
+        { id: 'cold', label: t?.storage?.coldStorage || 'Cold Storage', icon: Snowflake, count: 3 },
+        { id: 'hot', label: t?.storage?.hotStorage || 'Hot Storage', icon: Thermometer, count: 2 },
+        { id: 'warehouse', label: t?.storage?.warehouses || 'Warehouses', icon: Warehouse, count: 2 },
+        { id: 'silo', label: t?.storage?.silos || 'Silos', icon: Cylinder, count: 1 },
+    ]
 
     useEffect(() => {
         const load = async () => {
@@ -49,16 +41,6 @@ function Storage() {
     const filteredFacilities = activeFilter === 'all'
         ? facilitiesData
         : facilitiesData.filter(f => f.type === activeFilter)
-
-    const getTypeIcon = (type) => {
-        switch (type) {
-            case 'cold': return '🔵'
-            case 'hot': return '🔴'
-            case 'warehouse': return '⚫'
-            case 'silo': return '⚪'
-            default: return '📍'
-        }
-    }
 
     // Storage context for AI
     const storageContext = {
@@ -83,7 +65,7 @@ function Storage() {
                         <img src="/assets/ulip-logo.png" alt="ULIP" className="partner-logo" />
                     </div>
                     <div className="header-title-row">
-                        <h1>Storage Facilities</h1>
+                        <h1>{t?.storage?.title || 'Storage Facilities'}</h1>
                         <ContextualAI
                             domain="storage"
                             context={storageContext}
@@ -91,7 +73,7 @@ function Storage() {
                             mode="button"
                         />
                     </div>
-                    <p className="text-muted">Real-time visibility into storage capacity</p>
+                    <p className="text-muted">{t?.storage?.subtitle || 'Real-time visibility into storage capacity'}</p>
                 </div>
 
                 {/* Filter Tabs */}
@@ -110,11 +92,11 @@ function Storage() {
 
                 {/* Legend */}
                 <div className="map-legend">
-                    <span className="legend-title">Legend:</span>
-                    <span className="legend-item"><span className="legend-dot cold"></span> Cold Storage</span>
-                    <span className="legend-item"><span className="legend-dot hot"></span> Hot Storage</span>
-                    <span className="legend-item"><span className="legend-dot warehouse"></span> Warehouse</span>
-                    <span className="legend-item"><span className="legend-dot silo"></span> Silo</span>
+                    <span className="legend-title">{t?.storage?.legend || 'Legend:'}</span>
+                    <span className="legend-item"><span className="legend-dot cold"></span> {t?.storage?.coldStorage || 'Cold Storage'}</span>
+                    <span className="legend-item"><span className="legend-dot hot"></span> {t?.storage?.hotStorage || 'Hot Storage'}</span>
+                    <span className="legend-item"><span className="legend-dot warehouse"></span> {t?.storage?.warehouses || 'Warehouse'}</span>
+                    <span className="legend-item"><span className="legend-dot silo"></span> {t?.storage?.silos || 'Silo'}</span>
                 </div>
 
                 {/* Map */}
@@ -133,10 +115,10 @@ function Storage() {
                                 <Popup>
                                     <div className="popup-content">
                                         <strong>{facility.name}</strong>
-                                        <p>Type: {facility.type}</p>
-                                        <p>Capacity: {facility.capacity} tonnes</p>
-                                        <p>Used: {facility.usage} tonnes</p>
-                                        <p>Available: {facility.capacity - facility.usage} tonnes</p>
+                                        <p>{t?.storage?.type || 'Type:'} {facility.type}</p>
+                                        <p>{t?.storage?.capacity || 'Capacity:'} {facility.capacity} {t?.storage?.tonnes || 'tonnes'}</p>
+                                        <p>{t?.storage?.used || 'Used:'} {facility.usage} {t?.storage?.tonnes || 'tonnes'}</p>
+                                        <p>{t?.storage?.available || 'Available:'} {facility.capacity - facility.usage} {t?.storage?.tonnes || 'tonnes'}</p>
                                     </div>
                                 </Popup>
                             </Marker>
@@ -161,15 +143,15 @@ function Storage() {
                             <div className="facility-stats">
                                 <div className="facility-stat">
                                     <span className="stat-value">{facility.total_capacity}</span>
-                                    <span className="stat-label">Total (t)</span>
+                                    <span className="stat-label">{t?.storage?.totalT || 'Total (t)'}</span>
                                 </div>
                                 <div className="facility-stat">
                                     <span className="stat-value">{facility.current_usage}</span>
-                                    <span className="stat-label">Used (t)</span>
+                                    <span className="stat-label">{t?.storage?.usedT || 'Used (t)'}</span>
                                 </div>
                                 <div className="facility-stat">
                                     <span className="stat-value">{facility.total_capacity - facility.current_usage}</span>
-                                    <span className="stat-label">Available (t)</span>
+                                    <span className="stat-label">{t?.storage?.availableT || 'Available (t)'}</span>
                                 </div>
                             </div>
                             <div className="facility-meta">

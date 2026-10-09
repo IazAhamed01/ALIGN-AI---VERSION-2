@@ -3,18 +3,31 @@ import { Send, Sparkles, Loader2, MessageCircle } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import './AIAssistant.css'
 
-const API_URL = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001')
+const API_URL = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000')
 
 function AIAssistant() {
-    const { language } = useLanguage()
+    const { language, t } = useLanguage()
     const [question, setQuestion] = useState('')
     const [messages, setMessages] = useState([
         {
             type: 'ai',
-            text: 'Hello! I\'m your intelligent assistant for Agriculture, Storage, and Logistics. Ask me anything about farming practices, crop management, storage optimization, inventory management, logistics planning, or supply chain efficiency!'
+            text: t?.aiAssistant?.welcome || 'Hello! I\'m your intelligent assistant for Agriculture, Storage, and Logistics. Ask me anything about farming practices, crop management, storage optimization, inventory management, logistics planning, or supply chain efficiency!'
         }
     ])
     const [loading, setLoading] = useState(false)
+
+    // Update welcome message if user hasn't typed anything yet
+    useEffect(() => {
+        setMessages(prev => {
+            if (prev.length === 1 && prev[0].type === 'ai') {
+                return [{
+                    type: 'ai',
+                    text: t?.aiAssistant?.welcome || prev[0].text
+                }]
+            }
+            return prev
+        })
+    }, [language, t])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -52,7 +65,7 @@ function AIAssistant() {
             console.error('AI Query Error:', error)
             const errorMessage = {
                 type: 'error',
-                text: 'Sorry, I couldn\'t process your question. Please try again or check if the backend is running.'
+                text: t?.aiAssistant?.error || 'Sorry, I couldn\'t process your question. Please try again or check if the backend is running.'
             }
             setMessages(prev => [...prev, errorMessage])
         } finally {
@@ -60,7 +73,7 @@ function AIAssistant() {
         }
     }
 
-    const quickQuestions = [
+    const quickQuestions = t?.aiAssistant?.quickQ || [
         'What are the best practices for harvest timing?',
         'How can I optimize storage capacity?',
         'What factors affect logistics planning?',
@@ -81,8 +94,8 @@ function AIAssistant() {
                             <Sparkles className="ai-icon" size={32} />
                         </div>
                         <div>
-                            <h1>AI Assistant</h1>
-                            <p>Answers to all your queries</p>
+                            <h1>{t?.aiAssistant?.title || 'AI Assistant'}</h1>
+                            <p>{t?.aiAssistant?.subtitle || 'Answers to all your queries'}</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +133,7 @@ function AIAssistant() {
                                 </div>
                                 <div className="message-content">
                                     <div className="message-text typing-indicator">
-                                        AI is thinking...
+                                        {t?.aiAssistant?.thinking || 'AI is thinking...'}
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +143,7 @@ function AIAssistant() {
                     {/* Quick Questions */}
                     {messages.length === 1 && (
                         <div className="quick-questions">
-                            <p className="quick-questions-title">Quick Questions:</p>
+                            <p className="quick-questions-title">{t?.aiAssistant?.quickQuestions || 'Quick Questions:'}</p>
                             <div className="quick-questions-grid">
                                 {quickQuestions.map((q, index) => (
                                     <button
@@ -152,7 +165,7 @@ function AIAssistant() {
                                 type="text"
                                 value={question}
                                 onChange={(e) => setQuestion(e.target.value)}
-                                placeholder="Ask me anything about agriculture..."
+                                placeholder={t?.aiAssistant?.placeholder || 'Ask me anything about agriculture...'}
                                 className="chat-input"
                                 disabled={loading}
                             />
@@ -173,7 +186,7 @@ function AIAssistant() {
 
                 {/* Info Footer */}
                 <div className="ai-info">
-                    <p>💡 Tip: Ask specific questions for better answers. Example: "What's the optimal moisture level for wheat harvest?"</p>
+                    <p>{t?.aiAssistant?.tip || '💡 Tip: Ask specific questions for better answers. Example: "What\'s the optimal moisture level for wheat harvest?"'}</p>
                 </div>
             </div>
         </div>

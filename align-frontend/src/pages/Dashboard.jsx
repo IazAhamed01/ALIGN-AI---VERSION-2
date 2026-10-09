@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useGlobalState } from '../context/GlobalState'
+import { useLanguage } from '../context/LanguageContext'
 import {
     Play,
     RefreshCw,
@@ -16,6 +17,7 @@ import './Dashboard.css'
 function Dashboard() {
     const { state, runCoordination, fetchSystemSummary } = useGlobalState()
     const { dashboardResult, systemSummary, uiStatus } = state
+    const { t } = useLanguage()
 
     useEffect(() => {
         if (!systemSummary) {
@@ -43,9 +45,9 @@ function Dashboard() {
                 {/* Header */}
                 <div className="dashboard-header">
                     <div>
-                        <h1>Coordination Dashboard</h1>
+                        <h1>{t?.dashboard?.title || 'Coordination Dashboard'}</h1>
                         <p className="text-muted">
-                            Future-aware coordination for harvest forecasting, logistics, and storage
+                            {t?.dashboard?.subtitle || 'Future-aware coordination for harvest forecasting, logistics, and storage'}
                         </p>
                     </div>
 
@@ -57,12 +59,12 @@ function Dashboard() {
                         {uiStatus.loading ? (
                             <>
                                 <RefreshCw size={20} className="spin" />
-                                Processing...
+                                {t?.dashboard?.processing || 'Processing...'}
                             </>
                         ) : (
                             <>
                                 <Play size={20} />
-                                Run Coordination
+                                {t?.dashboard?.runCoordination || 'Run Coordination'}
                             </>
                         )}
                     </button>
@@ -80,7 +82,7 @@ function Dashboard() {
                 {uiStatus.lastUpdated && (
                     <div className="last-updated">
                         <Clock size={14} />
-                        Last updated: {new Date(uiStatus.lastUpdated).toLocaleString()}
+                        {t?.dashboard?.lastUpdated || 'Last updated:'} {new Date(uiStatus.lastUpdated).toLocaleString()}
                     </div>
                 )}
 
@@ -88,7 +90,7 @@ function Dashboard() {
                 {uiStatus.loading && !dashboardResult && (
                     <div className="loading-state">
                         <div className="loader loader-lg"></div>
-                        <p>Running coordination analysis...</p>
+                        <p>{t?.dashboard?.runningAnalysis || 'Running coordination analysis...'}</p>
                     </div>
                 )}
 
@@ -98,19 +100,19 @@ function Dashboard() {
                         {/* Context Bar */}
                         <div className="context-bar">
                             <div className="context-item">
-                                <span className="context-label">Crop</span>
+                                <span className="context-label">{t?.dashboard?.crop || 'Crop'}</span>
                                 <span className="context-value">{dashboardResult.crop}</span>
                             </div>
                             <div className="context-item">
-                                <span className="context-label">Region</span>
+                                <span className="context-label">{t?.dashboard?.region || 'Region'}</span>
                                 <span className="context-value">{dashboardResult.region}</span>
                             </div>
                             <div className="context-item">
-                                <span className="context-label">Forecast Window</span>
-                                <span className="context-value">{dashboardResult.forecast_window} Days</span>
+                                <span className="context-label">{t?.dashboard?.forecastWindow || 'Forecast Window'}</span>
+                                <span className="context-value">{dashboardResult.forecast_window} {t?.dashboard?.days || 'Days'}</span>
                             </div>
                             <div className="context-item">
-                                <span className="context-label">Weather</span>
+                                <span className="context-label">{t?.dashboard?.weather || 'Weather'}</span>
                                 <span className="context-value">{dashboardResult.weather?.condition}</span>
                             </div>
                         </div>
@@ -124,9 +126,9 @@ function Dashboard() {
                                 <div className="summary-content">
                                     <div className="summary-value">
                                         {dashboardResult.summary.forecasted_harvest_volume}
-                                        <span className="summary-unit">tonnes</span>
+                                        <span className="summary-unit">{t?.dashboard?.tonnes || 'tonnes'}</span>
                                     </div>
-                                    <div className="summary-label">Forecasted Harvest</div>
+                                    <div className="summary-label">{t?.dashboard?.forecastedHarvest || 'Forecasted Harvest'}</div>
                                     <span className={`badge badge-${dashboardResult.summary.harvest_level === 'HIGH' ? 'error' : dashboardResult.summary.harvest_level === 'MEDIUM' ? 'warning' : 'success'}`}>
                                         {dashboardResult.summary.harvest_level}
                                     </span>
@@ -140,9 +142,9 @@ function Dashboard() {
                                 <div className="summary-content">
                                     <div className="summary-value">
                                         {Math.round(dashboardResult.logistics_assessment.utilization_ratio * 100)}%
-                                        <span className="summary-unit">utilization</span>
+                                        <span className="summary-unit">{t?.dashboard?.utilization || 'utilization'}</span>
                                     </div>
-                                    <div className="summary-label">Transport Capacity</div>
+                                    <div className="summary-label">{t?.dashboard?.transportCapacity || 'Transport Capacity'}</div>
                                     <span className={`badge badge-${getStressColor(dashboardResult.summary.logistics_stress_level)}`}>
                                         {dashboardResult.summary.logistics_stress_level}
                                     </span>
@@ -156,9 +158,9 @@ function Dashboard() {
                                 <div className="summary-content">
                                     <div className="summary-value">
                                         {dashboardResult.summary.storage_reserve_percentage}%
-                                        <span className="summary-unit">reserve</span>
+                                        <span className="summary-unit">{t?.dashboard?.reserve || 'reserve'}</span>
                                     </div>
-                                    <div className="summary-label">Storage Recommendation</div>
+                                    <div className="summary-label">{t?.dashboard?.storageRecommendation || 'Storage Recommendation'}</div>
                                     <span className={`badge badge-${getActionColor(dashboardResult.summary.storage_action)}`}>
                                         {dashboardResult.summary.storage_action?.replace(/_/g, ' ')}
                                     </span>
@@ -170,7 +172,7 @@ function Dashboard() {
                         <div className="advisories-section">
                             <h3>
                                 <Info size={20} />
-                                System Advisories
+                                {t?.dashboard?.systemAdvisories || 'System Advisories'}
                             </h3>
                             <div className="advisories-list">
                                 {dashboardResult.advisories?.map((advisory, i) => (
@@ -184,7 +186,7 @@ function Dashboard() {
 
                         {/* Farmer Forecasts */}
                         <div className="forecasts-section">
-                            <h3>Individual Farmer Forecasts</h3>
+                            <h3>{t?.dashboard?.individualForecasts || 'Individual Farmer Forecasts'}</h3>
                             <div className="forecasts-grid">
                                 {dashboardResult.harvest_forecast?.individual_forecasts?.map((farmer) => (
                                     <div key={farmer.farmer_id} className="forecast-card card">
@@ -197,15 +199,15 @@ function Dashboard() {
                                         <div className="forecast-stats">
                                             <div className="forecast-stat">
                                                 <span className="stat-value">{farmer.forecasted_harvest_volume}</span>
-                                                <span className="stat-label">Tonnes</span>
+                                                <span className="stat-label">{t?.dashboard?.tonnes || 'Tonnes'}</span>
                                             </div>
                                             <div className="forecast-stat">
                                                 <span className="stat-value">{Math.round(farmer.confidence_score * 100)}%</span>
-                                                <span className="stat-label">Confidence</span>
+                                                <span className="stat-label">{t?.dashboard?.confidence || 'Confidence'}</span>
                                             </div>
                                             <div className="forecast-stat">
                                                 <span className="stat-value">{farmer.days_to_harvest}</span>
-                                                <span className="stat-label">Days to Harvest</span>
+                                                <span className="stat-label">{t?.dashboard?.daysToHarvest || 'Days to Harvest'}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +217,7 @@ function Dashboard() {
 
                         {/* Storage Facilities */}
                         <div className="storage-section">
-                            <h3>Storage Facilities</h3>
+                            <h3>{t?.dashboard?.storageFacilities || 'Storage Facilities'}</h3>
                             <div className="storage-grid">
                                 {dashboardResult.storage_assessment?.facilities?.facilities?.map((facility) => (
                                     <div key={facility.storage_id} className="storage-card card">
@@ -227,7 +229,7 @@ function Dashboard() {
                                             ></div>
                                         </div>
                                         <div className="storage-info">
-                                            <span>{facility.available} tonnes available</span>
+                                            <span>{facility.available} {t?.dashboard?.available || 'tonnes available'}</span>
                                             <span>{facility.temperature_range}</span>
                                         </div>
                                     </div>
@@ -243,8 +245,8 @@ function Dashboard() {
                         <div className="empty-icon">
                             <TrendingUp size={48} />
                         </div>
-                        <h3>No Coordination Data</h3>
-                        <p>Click "Run Coordination" to analyze harvest forecasts, logistics stress, and storage allocation.</p>
+                        <h3>{t?.dashboard?.noData || 'No Coordination Data'}</h3>
+                        <p>{t?.dashboard?.noDataDesc || 'Click "Run Coordination" to analyze harvest forecasts, logistics stress, and storage allocation.'}</p>
                     </div>
                 )}
             </div>

@@ -24,7 +24,7 @@ const varieties = [
 
 function Farmers() {
     const { state, fetchFarmers } = useGlobalState()
-    const { language } = useLanguage()
+    const { language, t } = useLanguage()
     const { farmerInputs } = state
     const [loading, setLoading] = useState(true)
 
@@ -72,7 +72,7 @@ function Farmers() {
                             <img src="/assets/agristack-logo.jpg" alt="AgriStack" className="partner-logo" />
                         </div>
                         <div className="header-title-row">
-                            <h1>Farmer Registry</h1>
+                            <h1>{t?.farmers?.title || 'Farmer Registry'}</h1>
                             <ContextualAI
                                 domain="farmers"
                                 context={farmingContext}
@@ -80,7 +80,7 @@ function Farmers() {
                                 mode="button"
                             />
                         </div>
-                        <p className="text-muted">Harvest intent signals and readiness scores</p>
+                        <p className="text-muted">{t?.farmers?.subtitle || 'Harvest intent signals and readiness scores'}</p>
                     </div>
                 </div>
 
@@ -88,26 +88,26 @@ function Farmers() {
                 <div className="summary-row">
                     <div className="big-stat">
                         <div className="big-stat-value">1.2M</div>
-                        <div className="big-stat-label">EST. YIELD TONS (2024-25)</div>
+                        <div className="big-stat-label">{t?.farmers?.estYield || 'EST. YIELD TONS (2024-25)'}</div>
                     </div>
                     <div className="gauge-stats">
                         <div className="gauge-stat">
                             <div className="gauge-circle green">
                                 <span>65%</span>
                             </div>
-                            <div className="gauge-label">SOIL MOISTURE</div>
+                            <div className="gauge-label">{t?.farmers?.soilMoisture || 'SOIL MOISTURE'}</div>
                         </div>
                         <div className="gauge-stat">
                             <div className="gauge-circle yellow">
                                 <span>65%</span>
                             </div>
-                            <div className="gauge-label">PEST RISK<br />LOW</div>
+                            <div className="gauge-label">{t?.farmers?.pestRisk || 'PEST RISK'}<br />{t?.farmers?.pestRiskLevel || 'LOW'}</div>
                         </div>
                         <div className="gauge-stat">
                             <div className="gauge-circle red">
                                 <span>30%</span>
                             </div>
-                            <div className="gauge-label">MARKET PRICE<br />₹25/KG</div>
+                            <div className="gauge-label">{t?.farmers?.marketPrice || 'MARKET PRICE'}<br />₹25/KG</div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@ function Farmers() {
                 <div className="charts-row">
                     {/* Historical Production */}
                     <div className="chart-card card">
-                        <h3>HISTORICAL PRODUCTION (LAST 5 YEARS)</h3>
+                        <h3>{t?.farmers?.historicalProduction || 'HISTORICAL PRODUCTION (LAST 5 YEARS)'}</h3>
                         <div className="chart-area">
                             <svg viewBox="0 0 200 100" className="line-chart">
                                 <defs>
@@ -141,7 +141,7 @@ function Farmers() {
 
                     {/* Cultivation Timeline */}
                     <div className="chart-card card">
-                        <h3>CULTIVATION TIMELINE (2024-25)</h3>
+                        <h3>{t?.farmers?.cultivationTimeline || 'CULTIVATION TIMELINE (2024-25)'}</h3>
                         <div className="timeline">
                             <div className="timeline-track">
                                 <div className="timeline-progress" style={{ width: '60%' }}></div>
@@ -149,22 +149,22 @@ function Farmers() {
                             <div className="timeline-stages">
                                 <div className="stage active">
                                     <Calendar size={16} />
-                                    <span>PLANTING</span>
+                                    <span>{t?.farmers?.planting || 'PLANTING'}</span>
                                     <small>OCT-NOV</small>
                                 </div>
                                 <div className="stage active">
                                     <Droplets size={16} />
-                                    <span>GROWTH</span>
+                                    <span>{t?.farmers?.growth || 'GROWTH'}</span>
                                     <small>DEC-FEB</small>
                                 </div>
                                 <div className="stage">
                                     <TrendingUp size={16} />
-                                    <span>HARVEST</span>
+                                    <span>{t?.farmers?.harvest || 'HARVEST'}</span>
                                     <small>MAR-APR</small>
                                 </div>
                                 <div className="stage">
                                     <MapPin size={16} />
-                                    <span>STORAGE</span>
+                                    <span>{t?.farmers?.storage || 'STORAGE'}</span>
                                     <small>MAY-JUN</small>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@ function Farmers() {
                 <div className="bottom-row">
                     {/* Variety Breakdown */}
                     <div className="chart-card card">
-                        <h3>VARIETY BREAKDOWN</h3>
+                        <h3>{t?.farmers?.varietyBreakdown || 'VARIETY BREAKDOWN'}</h3>
                         <div className="variety-chart">
                             {varieties.map((v, i) => (
                                 <div key={i} className="variety-bar">
@@ -193,27 +193,27 @@ function Farmers() {
 
                     {/* Risk Indicators */}
                     <div className="chart-card card">
-                        <h3>RISK INDICATORS</h3>
+                        <h3>{t?.farmers?.riskIndicators || 'RISK INDICATORS'}</h3>
                         <div className="risk-list">
                             <div className="risk-item warning">
                                 <Droplets size={18} />
                                 <div>
-                                    <strong>DROUGHT ALERT:</strong>
-                                    <span>MODERATE</span>
+                                    <strong>{t?.farmers?.droughtAlert || 'DROUGHT ALERT:'} </strong>
+                                    <span>{t?.farmers?.moderate || 'MODERATE'}</span>
                                 </div>
                             </div>
                             <div className="risk-item info">
                                 <TrendingUp size={18} />
                                 <div>
-                                    <strong>RAINFALL FORECAST:</strong>
-                                    <span>BELOW AVG</span>
+                                    <strong>{t?.farmers?.rainfallForecast || 'RAINFALL FORECAST:'} </strong>
+                                    <span>{t?.farmers?.belowAvg || 'BELOW AVG'}</span>
                                 </div>
                             </div>
                             <div className="risk-item success">
                                 <Bug size={18} />
                                 <div>
-                                    <strong>PEST OUTBREAK:</strong>
-                                    <span>MINOR LOCALIZED</span>
+                                    <strong>{t?.farmers?.pestOutbreak || 'PEST OUTBREAK:'} </strong>
+                                    <span>{t?.farmers?.minorLocalized || 'MINOR LOCALIZED'}</span>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +222,7 @@ function Farmers() {
 
                 {/* Farmer Cards */}
                 <div className="farmers-section">
-                    <h3><Users size={20} /> Registered Farmers</h3>
+                    <h3><Users size={20} /> {t?.farmers?.registeredFarmers || 'Registered Farmers'}</h3>
                     <div className="farmers-grid">
                         {farmerInputs.map((farmer) => (
                             <div key={farmer.farmer_id} className="farmer-card card">
@@ -235,17 +235,17 @@ function Farmers() {
                                         <span className="farmer-id">{farmer.farmer_id}</span>
                                     </div>
                                     <span className={`badge badge-${farmer.readiness_score >= 0.8 ? 'success' : farmer.readiness_score >= 0.6 ? 'warning' : 'neutral'}`}>
-                                        {Math.round(farmer.readiness_score * 100)}% Ready
+                                        {Math.round(farmer.readiness_score * 100)}% {t?.farmers?.ready || 'Ready'}
                                     </span>
                                 </div>
                                 <div className="farmer-stats">
                                     <div className="farmer-stat">
                                         <Calendar size={14} />
-                                        <span>Sowing: {farmer.sowing_date}</span>
+                                        <span>{t?.farmers?.sowing || 'Sowing:'} {farmer.sowing_date}</span>
                                     </div>
                                     <div className="farmer-stat">
                                         <MapPin size={14} />
-                                        <span>Area: {farmer.cultivated_area} ha</span>
+                                        <span>{t?.farmers?.area || 'Area:'} {farmer.cultivated_area} {t?.farmers?.ha || 'ha'}</span>
                                     </div>
                                 </div>
                             </div>
